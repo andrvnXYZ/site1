@@ -1,4 +1,4 @@
-# Gamit og PHP 8.2 nga naay Apache
+
 FROM php:8.2-apache
 
 # I-install ang gikinahanglan nga extensions para sa Laravel/Lumen
