@@ -18,16 +18,16 @@ $router->get('/', function () use ($router) {
 });
 
 
-$router->get('/users', 'UserController@getUsers');
-$router->post('/users', 'UserController@add');
-$router->get('/users/{id}', 'UserController@show');     
-$router->delete('/users/{id}', 'UserController@delete');
-$router->put('/users/{id}', 'UserController@update');
-
-
+// Kani nga routes, maski kinsa ka, basta naay internet, maka-access.
 $router->group(['prefix' => 'api'], function () use ($router) {
-    $router->post('/register', 'UserController@add'); // Mao ni ang registration
-    $router->post('/login', 'UserController@login');    // Siguroha nga naa kay login function
+    $router->post('/register', 'UserController@add');
+    $router->post('/login', 'UserController@login');
+});
+
+// KANI NGA ROUTES, KINAHANGLAN NA OG TOKEN (Dapat naay auth middleware)
+$router->group(['prefix' => 'api', 'middleware' => 'auth'], function () use ($router) {
     $router->get('/users', 'UserController@getUsers');
-    // ... uban pa nga routes
+    $router->get('/users/{id}', 'UserController@show');
+    $router->delete('/users/{id}', 'UserController@delete');
+    $router->put('/users/{id}', 'UserController@update');
 });
